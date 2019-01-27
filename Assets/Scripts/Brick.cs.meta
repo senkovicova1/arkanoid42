@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 15dedd49a6e68f14d829f0ab79434d37
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - brokenBrick: {instanceID: 0}
+  - normalBrick: {fileID: 2100000, guid: d815303e129a1b744b6e80fcf0730154, type: 2}
+  - partiallyBrokenBrick: {fileID: 2100000, guid: bf4a833cebb5f6c42af6d727512166d0,
+      type: 2}
+  - almostBrokenBrick: {fileID: 2100000, guid: 000cd5ac714ba264da5dddcf0c84a717, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

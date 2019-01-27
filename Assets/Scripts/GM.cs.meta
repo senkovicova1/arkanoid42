@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: fd5d87a45fc1294478cedf7299277b6d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - brickPrefab: {fileID: 1062493353591874, guid: 90dc3f6f1327d9d40b0eabf290006b8e,
+      type: 2}
+  - brokenBrick: {fileID: 1165206752142956, guid: bbc3a9e079e5add4982cdb73588ed4b6,
+      type: 2}
+  - GOPl1: {instanceID: 0}
+  - GOPl2: {instanceID: 0}
+  - paddle1: {instanceID: 0}
+  - life1: {fileID: 1747545224812444, guid: 278d7dd81bb67544981060fda05de31a, type: 2}
+  - Player1Colour: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

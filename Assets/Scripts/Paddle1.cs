@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class Paddle1 : MonoBehaviour {
 
-    public float paddle1Speed = 1f;
-        
-    private Vector3 paddle1Position = new Vector3(0f, -8f, 0f);
+    public float paddleSpeed = 0.5f;
 
+    public static Paddle1 instance = null;
 
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+    // Use this for initialization
+    void Start () {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -21,16 +26,14 @@ public class Paddle1 : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            xPos = transform.position.x +  paddle1Speed;
-            paddle1Position = new Vector3(Mathf.Clamp(xPos, -12f, 12f), -8f, 0f);
-            transform.position = paddle1Position;
+            xPos = transform.position.x + paddleSpeed;
+            transform.position = new Vector3(Mathf.Clamp(xPos, -9.5f, 9.5f), transform.position.y, transform.position.z);
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            xPos = transform.position.x - paddle1Speed;
-            paddle1Position = new Vector3(Mathf.Clamp(xPos, -12f, 12f), -8f, 0f);
-            transform.position = paddle1Position;
+            xPos = transform.position.x - paddleSpeed;
+            transform.position = new Vector3(Mathf.Clamp(xPos, -9.5f, 9.5f), transform.position.y, transform.position.z);
         }    
 
     }

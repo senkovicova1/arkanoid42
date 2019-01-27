@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{54DC1A7B-BA3A-8E02-A58C-C09275D36071}</ProjectGuid>
+    <ProjectGuid>{80EB5FAB-63EC-9EC6-5767-3BCE0C975708}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -53,19 +53,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Ball1.cs" />
+     <Compile Include="Assets\Scripts\Ball.cs" />
+     <Compile Include="Assets\Scripts\Brick.cs" />
+     <Compile Include="Assets\Scripts\GM.cs" />
+     <Compile Include="Assets\Scripts\Life.cs" />
      <Compile Include="Assets\Scripts\Paddle1.cs" />
+     <Compile Include="Assets\Scripts\Paddle2.cs" />
  <Reference Include="UnityEditor.StandardEvents">
- <HintPath>C:/Users/Setsumi/Documents/Unity Projects/arkanoid42project/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+ <HintPath>C:/Users/Setsumi/Documents/GitHub/arkanoid42/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>C:/Users/Setsumi/Documents/Unity Projects/arkanoid42project/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>C:/Users/Setsumi/Documents/GitHub/arkanoid42/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>C:/Users/Setsumi/Documents/Unity Projects/arkanoid42project/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ <HintPath>C:/Users/Setsumi/Documents/GitHub/arkanoid42/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>C:/Users/Setsumi/Documents/Unity Projects/arkanoid42project/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>C:/Users/Setsumi/Documents/GitHub/arkanoid42/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Dokumenty/Programy/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
