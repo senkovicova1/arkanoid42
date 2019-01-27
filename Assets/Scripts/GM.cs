@@ -4,9 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GM : MonoBehaviour {
-
-    public GameObject text;
-
+    
     //lives amount
     public int lives1x;
     public int lives2x;
@@ -58,18 +56,14 @@ public class GM : MonoBehaviour {
     //sign with texts - Player1 won/Player2 won
     public GameObject GOPl1;
     public GameObject GOPl2;
+    public GameObject GOPl1text;
+    public GameObject GOPl2text;
+    public GameObject NGtext;
+    public GameObject EXITtext;
+    public GameObject NGbox;
+    public GameObject EXITbox;
     private bool visibleEnd = false;
-
-    //player1
-    public GameObject paddle1;
-    public GameObject ball1;
-    public GameObject brokenBall1;
-
-    //player2
-    public GameObject paddle2;
-    public GameObject ball2;
-    public GameObject brokenBall2;
-
+    
     public static GM instance = null;  
     
 
@@ -103,7 +97,7 @@ public class GM : MonoBehaviour {
             bricks1[i] = new GameObject[9];
             for (int j = 0; j < 9; j++)
             {                
-                bricks1[i][j] = Instantiate(brickPrefab6, new Vector3(x, y, 0), Quaternion.identity);
+                bricks1[i][j] = chosenBrick(x, y);
                 x += offsetX;
             }
             y -= offsetY + 1;
@@ -122,7 +116,7 @@ public class GM : MonoBehaviour {
             bricks2[i] = new GameObject[9];
             for (int j = 0; j < 9; j++)
             {
-                bricks2[i][j] = Instantiate(brickPrefab6, new Vector3(x, y, 0), Quaternion.identity);
+                bricks2[i][j] = chosenBrick(x, y);
                 x += offsetX;
             }
             y += offsetY + 1;
@@ -151,11 +145,49 @@ public class GM : MonoBehaviour {
         
     }
 
+    GameObject chosenBrick(float x, float y)
+    {
+        GameObject brick;
+        float rand = Random.Range(0, 100);
+
+        if (rand < 70f) {
+            brick = Instantiate(brickPrefab, new Vector3(x, y, 0), Quaternion.identity);
+        } else if (rand < 73f) {
+            brick = Instantiate(brickPrefab2, new Vector3(x, y, 0), Quaternion.identity);
+        } else if (rand < 76f) {
+            brick = Instantiate(brickPrefab2, new Vector3(x, y, 0), Quaternion.identity);
+        } else if (rand < 79f) {
+            brick = Instantiate(brickPrefab3, new Vector3(x, y, 0), Quaternion.identity);
+        } else if (rand < 82f) {
+            brick = Instantiate(brickPrefab3, new Vector3(x, y, 0), Quaternion.identity);
+        } else if (rand < 85f) {
+            brick = Instantiate(brickPrefab5, new Vector3(x, y, 0), Quaternion.identity);
+        } else if (rand < 88f) {
+            brick = Instantiate(brickPrefab6, new Vector3(x, y, 0), Quaternion.identity);
+        } else if (rand < 90f) {
+            brick = Instantiate(brickPrefab7, new Vector3(x, y, 0), Quaternion.identity);
+        } else if (rand < 92f) {
+            brick = Instantiate(brickPrefab8, new Vector3(x, y, 0), Quaternion.identity);
+        } else if (rand < 94f) {
+            brick = Instantiate(brickPrefab9, new Vector3(x, y, 0), Quaternion.identity);
+        } else if (rand < 96f) {
+            brick = Instantiate(brickPrefab10, new Vector3(x, y, 0), Quaternion.identity);
+        } else if (rand < 97f) {
+            brick = Instantiate(brickPrefab11, new Vector3(x, y, 0), Quaternion.identity);
+        } else if (rand < 98f) {
+            brick = Instantiate(brickPrefab12, new Vector3(x, y, 0), Quaternion.identity);
+        } else {
+            brick = Instantiate(brickPrefab13, new Vector3(x, y, 0), Quaternion.identity);
+        }
+
+        return brick;
+    }
+
     void checkGO()
     {
-        if (lives1x == -1 || bricksAmount2 == 0)
+        if (lives1x <= -1 || bricksAmount2 == 0)
         {
-            if (addedBricks2 != null)
+            if (bricksAmount2 == 0 && addedBricks2 != null)
             {
                 for (int i = 0; i < 9; i++)
                 {
@@ -163,10 +195,15 @@ public class GM : MonoBehaviour {
                 }
             }
             GOPl1.SetActive(true);
+            GOPl1text.SetActive(true);
+            NGtext.SetActive(true);
+            EXITtext.SetActive(true);
+            NGbox.SetActive(true);
+            EXITbox.SetActive(true);
             visibleEnd = true;
-        } else if (lives2x == -1 || bricksAmount1 == 0)
+        } else if (lives2x <= -1 || bricksAmount1 == 0)
         {
-            if (addedBricks1 != null)
+            if (bricksAmount1 == 0 && addedBricks1 != null)
             {
                 for (int i = 0; i < 9; i++)
                 {
@@ -174,7 +211,11 @@ public class GM : MonoBehaviour {
                 }
             }
             GOPl2.SetActive(true);
-            text.GetComponent<UnityEngine.UI.Text>().text = "meh";
+            GOPl2text.SetActive(true);
+            NGtext.SetActive(true);
+            EXITtext.SetActive(true);
+            NGbox.SetActive(true);
+            EXITbox.SetActive(true);
             visibleEnd = true;
         }
     }
@@ -186,9 +227,10 @@ public class GM : MonoBehaviour {
             lives1x += life;
             if (life < 0)
             {
-                Instantiate(brokenBall1, new Vector3(ball1.transform.position.x, ball1.transform.position.y, 0), Quaternion.identity);
-                ball1.transform.parent = paddle1.transform;
-                ball1.transform.position = new Vector3(paddle1.transform.position.x, paddle1.transform.position.y + 1, 0);
+                Ball1.instance.transform.localScale = new Vector3(1, 1, 1);
+                Ball1.instance.transform.position = new Vector3(Paddle1.instance.transform.position.x, Paddle1.instance.transform.position.y + 1, 0);
+                Ball1.instance.ballInPlay = false;
+                Ball1.instance.setKinematic(true);
 
                 for (int i = 0; i < 5; i++)
                 {
@@ -214,10 +256,11 @@ public class GM : MonoBehaviour {
         {
             lives2x += life;
             if (life < 0)
-            {
-                Instantiate(brokenBall2, new Vector3(ball2.transform.position.x, ball2.transform.position.y, 0), Quaternion.identity);
-                ball2.transform.parent = paddle2.transform;
-                ball2.transform.position = new Vector3(paddle2.transform.position.x, paddle2.transform.position.y - 1, 0);
+            {                
+                Ball2.instance.transform.position = new Vector3(Paddle2.instance.transform.position.x, Paddle2.instance.transform.position.y - 1, 0);
+                Ball2.instance.transform.localScale = new Vector3(1, 1, 1);
+                Ball2.instance.ballInPlay = false;
+                Ball2.instance.setKinematic(true);
 
                 for (int i = 0; i < 5; i++)
                 {
@@ -252,16 +295,20 @@ public class GM : MonoBehaviour {
         if (y == 1f)
         {
             addedBricks1[xx].SetActive(false);
+
         } else if (y == 22.5f)
         {
             addedBricks2[xx].SetActive(false);
         } else if (y <= 11f)
         {
-            bricks1[yy][xx].SetActive(false);
+            //   bricks1[yy][xx].SetActive(false);
+            bricks1[yy][xx].transform.position = new Vector3(bricks1[yy][xx].transform.position.x, bricks1[yy][xx].transform.position.y, 100);
             bricksAmount1--;
         } else
-        {         
-            bricks2[yy*(-1)-2][xx].SetActive(false);
+        {
+            //   bricks2[yy*(-1)-2][xx].SetActive(false);
+            int yynew = yy * (-1) - 2;
+            bricks2[yynew][xx].transform.position = new Vector3(bricks2[yynew][xx].transform.position.x, bricks2[yynew][xx].transform.position.y, 100);
             bricksAmount2--;
         }
         checkGO();        
@@ -269,24 +316,67 @@ public class GM : MonoBehaviour {
 
     void Update()
     {
-        if (visibleEnd && Input.GetKey(KeyCode.KeypadEnter))
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
+
+        if (visibleEnd && Input.GetKey(KeyCode.Return))
         {
             visibleEnd = false;
+
             GOPl1.SetActive(false);
             GOPl2.SetActive(false);
+            GOPl1text.SetActive(false);
+            GOPl2text.SetActive(false);
+            NGtext.SetActive(false);
+            EXITtext.SetActive(false);
+            NGbox.SetActive(false);
+            EXITbox.SetActive(false);
+            
+            Paddle1.instance.transform.position = new Vector3(0, -8, 0);
+            Paddle2.instance.transform.position = new Vector3(0, 31, 0);
 
-            paddle1.transform.position = new Vector3(0, -8, 0);
-            ball1.transform.parent = paddle1.transform;
-            ball1.transform.position = new Vector3(paddle1.transform.position.x, paddle1.transform.position.y + 1, 0);
-
-            paddle2.transform.position = new Vector3(0, 31f, 0);
-            ball2.transform.parent = paddle2.transform;
-            ball2.transform.position = new Vector3(paddle2.transform.position.x, paddle2.transform.position.y - 1, 0);
+            Paddle1.instance.transform.localScale = new Vector3(3, 1, 1);
+            Paddle2.instance.transform.localScale = new Vector3(3, 1, 1);
 
             Paddle1.instance.paddleSpeed = 0.5f;
             Paddle2.instance.paddleSpeed = 0.5f;
 
-            Start();
+
+            Ball1.instance.transform.localScale = new Vector3(1, 1,1);            
+            Ball1.instance.transform.position = new Vector3(Paddle1.instance.transform.position.x, Paddle1.instance.transform.position.y + 1, 0);
+            Ball1.instance.ballInPlay = false;
+            Ball1.instance.setKinematic(true);
+
+            Ball2.instance.transform.localScale = new Vector3(1,1,1);
+            Ball2.instance.transform.position = new Vector3(Paddle2.instance.transform.position.x, Paddle2.instance.transform.position.y - 1, 0);
+            Ball2.instance.ballInPlay = false;
+            Ball2.instance.setKinematic(true);
+
+
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    Destroy(bricks1[i][j]);
+                    Destroy(bricks2[i][j]);
+                }
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                Destroy(life1Array[i]);
+                Destroy(life2Array[i]);
+            }
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (addedBricks1 != null)  addedBricks1[i].SetActive(false);
+                if (addedBricks2 != null) addedBricks2[i].SetActive(false);
+            }
+
+            setupGame();
         }   
     }
 
@@ -298,20 +388,30 @@ public class GM : MonoBehaviour {
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    bricks2[i][j].SetActive(true);
+                    //             bricks2[i][j].SetActive(true);
+                    bricks1[i][j].transform.position = new Vector3(bricks1[i][j].transform.position.x, bricks1[i][j].transform.position.y, 0);
+
                 }
             }
             bricksAmount2 = 45;
+            Ball1.instance.transform.position = new Vector3(Paddle1.instance.transform.position.x, Paddle1.instance.transform.position.y - 1, 0);
+            Ball1.instance.ballInPlay = false;
+            Ball1.instance.setKinematic(true);
+
         } else
         {
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    bricks1[i][j].SetActive(true);
+                //    bricks1[i][j].SetActive(true);
+                    bricks1[i][j].transform.position = new Vector3(bricks2[i][j].transform.position.x, bricks2[i][j].transform.position.y, 0);
                 }
             }
             bricksAmount1 = 45;
+            Ball2.instance.transform.position = new Vector3(Paddle2.instance.transform.position.x, Paddle2.instance.transform.position.y + 1, 0);
+            Ball2.instance.ballInPlay = false;
+            Ball2.instance.setKinematic(true);
         }
     }
 
@@ -361,19 +461,72 @@ public class GM : MonoBehaviour {
             if ((Paddle1.instance.paddleSpeed > 4 && times > 1f)
                 || (Paddle1.instance.paddleSpeed < 0.2 && times < 1f))
                 return;
-
-            float old = Paddle1.instance.paddleSpeed;
+            
             Paddle1.instance.paddleSpeed *= times;
-            text.GetComponent<UnityEngine.UI.Text>().text = old + "*" + times + "=" + Paddle1.instance.paddleSpeed + " paddle1";
         } else
         {
             if ((Paddle2.instance.paddleSpeed > 4 && times > 1f)
                 || (Paddle2.instance.paddleSpeed < 0.2 && times < 1f))
                 return;
-            float old = Paddle2.instance.paddleSpeed;
+
             Paddle2.instance.paddleSpeed *= times;
-            text.GetComponent<UnityEngine.UI.Text>().text = old + "*" + times + "=" + Paddle2.instance.paddleSpeed + " paddle2";
         }
     }
+
+    public void enlargeBall(int id, float times)
+    {
+        if (id == 1)
+        {
+            if ((Ball1.instance.transform.localScale.x > 3 && times > 1f) 
+                || (Ball1.instance.transform.localScale.x < 0.1f && times < 1f))
+                return;
+            Ball1.instance.changeSize(times);
+        }
+        else
+        {
+            if ((Ball2.instance.transform.localScale.x > 3 && times > 1f)
+                || (Ball2.instance.transform.localScale.x < 0.1f && times < 1f))
+                return;
+
+            Ball2.instance.changeSize(times);
+        }
+    }
+
+    public void enlargePaddle(int id, float times)
+    {
+        if (id == 1)
+        {
+            if ((Paddle1.instance.transform.localScale.x > 3 && times > 1f)
+                || (Paddle1.instance.transform.localScale.x < 3f && times < 1f))
+                return;
+            Paddle1.instance.changeSize(times);
+        }
+        else
+        {
+            if ((Paddle2.instance.transform.localScale.x > 3 && times > 1f)
+                || (Paddle2.instance.transform.localScale.x < 3f && times < 1f))
+                return;
+
+            Paddle2.instance.changeSize(times);
+        }
+    }
+
+    public void shrinkPaddle(int id, float times)
+    {
+        if (id == 1)
+        {
+            if (Paddle1.instance.transform.localScale.x < 1.5f && times < 1f) return;
+
+            Paddle1.instance.changeSize(times);
+        }
+        else
+        {
+            if (Paddle2.instance.transform.localScale.x < 1.5f && times < 1f) return;
+
+            Paddle2.instance.changeSize(times);
+        }
+    }
+
+    //     text.GetComponent<UnityEngine.UI.Text>().text = old + "*" + times + "=" + Paddle2.instance.paddleSpeed + " paddle2";
 
 }

@@ -16,8 +16,9 @@ public class Brick : MonoBehaviour {
     float timeLeft;
 
     private int numberOfHits;
+    private bool wasEffective;
 
-    private bool released;
+    private bool effectActive;
 
     void Start()
     {
@@ -25,25 +26,31 @@ public class Brick : MonoBehaviour {
         {
             numberOfHits = 2;
         }
-        timeLeft = 10;
-        released = false;
+        timeLeft = 0;
+        effectActive = false;
+        wasEffective = false;
     }
 
     void Update()
     {
-        timeLeft -= Time.deltaTime;
-        if (timeLeft < 0 && !released)
+        if (effectActive)
         {
-            release();
-            released = true;
+            timeLeft -= Time.deltaTime;
+            if (timeLeft < 0)
+            {
+                effectActive = false;
+                release();
+            }
         }
     }
 
     void OnCollisionEnter(Collision other)
     {
+        if (wasEffective) return;
         if (id == 1)
         {
             GM.instance.addAll(transform.position.y);
+            wasEffective = true;
 
         } else if (id == 2)
         {
@@ -111,41 +118,83 @@ public class Brick : MonoBehaviour {
         }
         else if (id == 8)
         {
-
+            if (transform.position.y <= 11.5)
+            {
+                GM.instance.changeVelocityOfPaddle(1, 2f);
+            }
+            else
+            {
+                GM.instance.changeVelocityOfPaddle(2, 2f);
+            }
         }
         else if (id == 9)
         {
-
+            if (transform.position.y <= 11.5)
+            {
+                GM.instance.changeVelocityOfPaddle(1, 0.5f);
+            }
+            else
+            {
+                GM.instance.changeVelocityOfPaddle(2, 0.5f);
+            }
         }
         else if (id == 10)
         {
-
+            if (transform.position.y <= 11.5)
+            {
+                GM.instance.enlargeBall(1, 2f);
+            }
+            else
+            {
+                GM.instance.enlargeBall(2, 2f);
+            }
         }
         else if (id == 11)
         {
-
+            if (transform.position.y <= 11.5)
+            {
+                GM.instance.enlargeBall(2, 0.5f);
+            }
+            else
+            {
+                GM.instance.enlargeBall(1, 0.5f);
+            }
         }
         else if (id == 12)
         {
-
+            if (transform.position.y <= 11.5)
+            {
+                GM.instance.enlargePaddle(1, 2f);
+            }
+            else
+            {
+                GM.instance.enlargePaddle(2, 2f);
+            }
         }
         else if (id == 13)
         {
-
+            if (transform.position.y <= 11.5)
+            {
+                GM.instance.enlargePaddle(2, 0.5f);
+            }
+            else
+            {
+                GM.instance.enlargePaddle(1, 0.5f);
+            }
         }
 
-        timeLeft = 10;
-        released = false;
-
-        Instantiate(brokenBrick, transform.position, Quaternion.identity);
-        GM.instance.destroyBrick(transform.position.x, transform.position.y);
+        timeLeft = 5;
+        effectActive = true;
         
+        Instantiate(brokenBrick, transform.position, Quaternion.identity);
+        GM.instance.destroyBrick(transform.position.x, transform.position.y);        
     }
 
 
 
     void release()
     {
+        
         if (id == 6)
         {
             if (transform.position.y <= 11.5)
@@ -170,28 +219,70 @@ public class Brick : MonoBehaviour {
         }
         else if (id == 8)
         {
-
+            if (transform.position.y <= 11.5)
+            {
+                GM.instance.changeVelocityOfPaddle(1, 0.5f);
+            }
+            else
+            {
+                GM.instance.changeVelocityOfPaddle(2, 0.5f);
+            }
         }
         else if (id == 9)
         {
-
+            if (transform.position.y <= 11.5)
+            {
+                GM.instance.changeVelocityOfPaddle(1, 2f);
+            }
+            else
+            {
+                GM.instance.changeVelocityOfPaddle(2, 2f);
+            }
         }
         else if (id == 10)
         {
-
+            if (transform.position.y <= 11.5)
+            {
+                GM.instance.enlargeBall(1, 0.5f);
+            }
+            else
+            {
+                GM.instance.enlargeBall(2, 0.5f);
+            }
         }
         else if (id == 11)
         {
-
+            if (transform.position.y <= 11.5)
+            {
+                GM.instance.enlargeBall(2, 2f);
+            }
+            else
+            {
+                GM.instance.enlargeBall(1, 2f);
+            }
         }
         else if (id == 12)
         {
-
+            if (transform.position.y <= 11.5)
+            {
+                GM.instance.enlargePaddle(1, 0.5f);
+            }
+            else
+            {
+                GM.instance.enlargePaddle(2, 0.5f);
+            }
         }
         else if (id == 13)
         {
-
-        }
+            if (transform.position.y <= 11.5)
+            {
+                GM.instance.enlargePaddle(2, 2f);
+            }
+            else
+            {
+                GM.instance.enlargePaddle(1, 2f);
+            }
+        }        
     }
 
 }

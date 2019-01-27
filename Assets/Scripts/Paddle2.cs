@@ -29,14 +29,20 @@ public class Paddle2 : MonoBehaviour {
         if (Input.GetKey(KeyCode.W))
         {
             xPos = transform.position.x + paddleSpeed;
-            transform.position = new Vector3(Mathf.Clamp(xPos, -9.5f, 9.5f), transform.position.y, transform.position.z);
+            transform.position = new Vector3(Mathf.Clamp(xPos, -11f + transform.localScale.x, 11f - transform.localScale.x), transform.position.y, transform.position.z);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
             xPos = transform.position.x - paddleSpeed;
-            transform.position = new Vector3(Mathf.Clamp(xPos, -9.5f, 9.5f), transform.position.y, transform.position.z);
+            transform.position = new Vector3(Mathf.Clamp(xPos, -11f + transform.localScale.x, 11f - transform.localScale.x), transform.position.y, transform.position.z);
         }
 
     }
+
+    public void changeSize(float times)
+    {
+        transform.localScale = new Vector3(transform.localScale.x * times, transform.localScale.y, transform.localScale.z);
+    }
+
 }
